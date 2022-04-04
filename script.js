@@ -65,6 +65,7 @@ const toggle = () => {
 addBtn.addEventListener("click", () => {
   intervalsFunc();
   createIntervalElementsFunc();
+  deleteElement()
 });
 
 
@@ -125,6 +126,7 @@ const createIntervalElementsFunc = () => {
     
     values.map((item) => {
       let el = document.createElement("li");
+      el.classList.add("interval-child")
       item = +item;
       let minutesItem = Math.floor(item / 60)
       let secondsItem = item % 60;
@@ -135,7 +137,6 @@ const createIntervalElementsFunc = () => {
       el.innerHTML = item;
       document.querySelector(".intervals").appendChild(el)
     })
-    console.log(values);
     
   } else {
     document.querySelector(".intervals").innerHTML = "";
@@ -159,3 +160,28 @@ window.addEventListener("load", () => {
     toggle();
   }
 });
+
+const deleteElement = () => {
+  let els = document.querySelectorAll(".interval-child");
+  let elsArr = Array.from(els)
+  elsArr.map(item => {
+    item.addEventListener('click', () => {
+      let itemValue = item.innerHTML.split(" : ");
+      let minutesI = +itemValue[0];
+      let secondsI = +itemValue[1];
+      let sumI = minutesI * 60 + secondsI;
+
+
+      let localValues = localStorage.getItem("intervals");
+      let valuesLocal = localValues.split(",");
+      let newSetValues = valuesLocal.filter(item => item != sumI)
+      console.log(newSetValues);
+      localStorage.setItem("intervals", newSetValues);
+      createIntervalElementsFunc();
+    }) 
+  })
+
+
+}
+
+deleteElement();

@@ -82,4 +82,24 @@ body {
   margin: 10px 0;
   background-color: #ccc;
   text-align: left;
+  position: relative;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+li::after {
+  content: "x";
+  width: 15%;
+  height: 100%;
+  background-color: #dd2929;
+  position: absolute;
+  right: 0;
+  top: 0;
+  color: #fff;
+  text-align: center;
+  font-size: 22px;
+}
+
+li:hover {
+  cursor: pointer;
 }
